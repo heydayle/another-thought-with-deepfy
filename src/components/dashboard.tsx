@@ -1,39 +1,38 @@
-import { useState } from "react";
-import { runWorkflow } from "@/services/dify";
+import { useMemo, useState } from "react";
 import { Loader2, Play, AlertCircle } from "lucide-react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { executeWorkflow } from "@/store/slices/difySlice";
 
 export function Dashboard() {
   const [query, setQuery] = useState("");
-  const [result, setResult] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const dispatch = useAppDispatch();
+  const { result, loading, error } = useAppSelector((state) => state.dify);
 
   const handleRunWorkflow = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
 
-    setLoading(true);
-    setError(null);
-    setResult(null);
-
-    try {
-      const res = await runWorkflow({ your_mine: query });
-      setResult(res);
-    } catch (err: any) {
-      setError(err.message || "An unexpected error occurred");
-    } finally {
-      setLoading(false);
-    }
+    // Dispatch the thunk action
+    dispatch(executeWorkflow({ your_mine: query }));
   };
+
+  const outputs = useMemo(() => {
+    if (!result) return null;
+    const parseResult = JSON.parse(result.data?.outputs?.text_result);
+
+    return parseResult || "";
+  }, [result]);
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-          Workflow Dashboard
+          Workflow Dashboard (Redux)
         </h1>
         <p className="text-gray-500 mt-2">
-          Execute your Dify workflow and view the results.
+          Execute your Dify workflow and view the results. State is managed by
+          Redux Toolkit.
         </p>
       </div>
 
@@ -104,7 +103,15 @@ export function Dashboard() {
           </div>
           <div className="p-6 overflow-x-auto bg-gray-50/50">
             <pre className="text-sm font-mono text-gray-800 whitespace-pre-wrap">
-              {JSON.stringify(result, null, 2)}
+              <label htmlFor="score">Score:</label>
+              <span> {outputs.score}</span>
+              <br />
+              <label htmlFor="your_quote">Your Quote:</label>
+              <p>- {outputs.your_quote}</p>
+              <label htmlFor="your_feeling">Your Feeling:</label>
+              <p>- {outputs.your_feeling}</p>
+              <label htmlFor="advice">Advice:</label>
+              <p>- {outputs.advice}</p>
             </pre>
           </div>
         </div>
