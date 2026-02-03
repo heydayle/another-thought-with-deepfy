@@ -18,10 +18,17 @@ export function Dashboard() {
   };
 
   const outputs = useMemo(() => {
-    if (!result) return null;
-    const parseResult = JSON.parse(result.data?.outputs?.text_result);
+    if (!result?.data?.outputs?.text_result) return null;
 
-    return parseResult || "";
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const textResult = result.data.outputs.text_result as any;
+      const parseResult = JSON.parse(textResult);
+      return parseResult;
+    } catch (e) {
+      console.error("Failed to parse JSON", e);
+      return null;
+    }
   }, [result]);
 
   return (

@@ -1,6 +1,3 @@
-import React from "react";
-import { Link } from "react-router";
-
 export default function AboutPage() {
   return (
     <div className="container mx-auto p-4">
