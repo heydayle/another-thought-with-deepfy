@@ -20,6 +20,16 @@ export const executeWorkflow = createAsyncThunk(
     async (inputs: Record<string, any>, { rejectWithValue }) => {
         try {
             const response = await runWorkflow(inputs);
+
+            // Save to IndexedDB
+            const { historyService } = await import('@/services/history');
+            await historyService.addRun({
+                log_id: response.log_id || crypto.randomUUID(), // Ensure we have an ID
+                inputs,
+                response,
+                created_at: Date.now()
+            });
+
             return response;
         } catch (err: any) {
             return rejectWithValue(err.message || 'Failed to run workflow');
