@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { parseTextResult } from "@/utils/help";
 import { useMemo, useState, useEffect } from "react";
 import { Loader2, Play, AlertCircle } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -48,7 +49,9 @@ function EmotionCheckIn({
       if (date.isSame(today, "day")) {
         const textResult = output.data.outputs.text_result;
         emotion = (
-          typeof textResult === "string" ? JSON.parse(textResult) : textResult
+          typeof textResult === "string"
+            ? parseTextResult(textResult)
+            : textResult
         ) as EmotionOutput;
       }
     });
@@ -196,16 +199,7 @@ export function Dashboard() {
 
     const textResult = result.data.outputs.text_result;
     if (typeof textResult === "string") {
-      try {
-        const cleanResult = textResult
-          .replace(/```json\s*/g, "")
-          .replace(/```\s*/g, "")
-          .trim();
-        return JSON.parse(cleanResult);
-      } catch (e) {
-        console.error("Failed to parse JSON", e);
-        return null;
-      }
+      return parseTextResult(textResult);
     }
     return textResult;
   }, [result]);

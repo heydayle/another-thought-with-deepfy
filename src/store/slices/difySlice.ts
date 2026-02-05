@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import type { WorkflowRunResponse } from '@/services/dify';
 import { runWorkflow } from '@/services/dify';
 import dayjs from 'dayjs';
+import { parseTextResult } from '@/utils/help';
 
 interface DifyState {
     result: WorkflowRunResponse | null;
@@ -23,14 +24,9 @@ export const executeWorkflow = createAsyncThunk(
 
             // Parse text_result if it's a string
             if (response.data.outputs.text_result && typeof response.data.outputs.text_result === 'string') {
-                try {
-                    const cleanResult = response.data.outputs.text_result
-                        .replace(/```json\s*/g, '')
-                        .replace(/```\s*/g, '')
-                        .trim();
-                    response.data.outputs.text_result = JSON.parse(cleanResult);
-                } catch (e) {
-                    console.error('Failed to parse text_result in slice:', e);
+                const parsed = parseTextResult(response.data.outputs.text_result);
+                if (parsed) {
+                    response.data.outputs.text_result = parsed;
                 }
             }
 
@@ -42,8 +38,6 @@ export const executeWorkflow = createAsyncThunk(
                 response,
                 created_at: dayjs().unix()
             });
-            console.log(dayjs().unix());
-
 
             return response;
         } catch (err: any) {
