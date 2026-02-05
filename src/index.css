@@ -5,6 +5,7 @@
 @import "@fontsource-variable/montserrat";
 
 @custom-variant dark (&:is(.dark *));
+@import "./assets/scss/dashboard.css";
 
 @theme inline {
   --font-sans: "Inter Variable", sans-serif;
@@ -158,9 +159,9 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply font-sans bg-background text-foreground;
+    @apply font-montserrat bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-montserrat;
   }
 }

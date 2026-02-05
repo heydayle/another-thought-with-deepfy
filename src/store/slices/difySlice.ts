@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import type { WorkflowRunResponse } from '@/services/dify';
 import { runWorkflow } from '@/services/dify';
+import dayjs from 'dayjs';
 
 interface DifyState {
     result: WorkflowRunResponse | null;
@@ -14,12 +15,24 @@ const initialState: DifyState = {
     error: null,
 };
 
-// Async Thunk for running the workflow
 export const executeWorkflow = createAsyncThunk(
     'dify/executeWorkflow',
     async (inputs: Record<string, any>, { rejectWithValue }) => {
         try {
             const response = await runWorkflow(inputs);
+
+            // Parse text_result if it's a string
+            if (response.data.outputs.text_result && typeof response.data.outputs.text_result === 'string') {
+                try {
+                    const cleanResult = response.data.outputs.text_result
+                        .replace(/```json\s*/g, '')
+                        .replace(/```\s*/g, '')
+                        .trim();
+                    response.data.outputs.text_result = JSON.parse(cleanResult);
+                } catch (e) {
+                    console.error('Failed to parse text_result in slice:', e);
+                }
+            }
 
             // Save to IndexedDB
             const { historyService } = await import('@/services/history');
@@ -27,8 +40,10 @@ export const executeWorkflow = createAsyncThunk(
                 log_id: response.log_id || crypto.randomUUID(), // Ensure we have an ID
                 inputs,
                 response,
-                created_at: Date.now()
+                created_at: dayjs().unix()
             });
+            console.log(dayjs().unix());
+
 
             return response;
         } catch (err: any) {

@@ -6,7 +6,7 @@ export function DefaultLayout() {
     <div className="container min-h-screen mx-auto">
       <div className="flex p-6">
         <Aside />
-        <div className="flex-1 p-4">
+        <div className="flex-1 px-6">
           <Outlet />
         </div>
       </div>

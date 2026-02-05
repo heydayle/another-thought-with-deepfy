@@ -1,6 +1,14 @@
 import { initDB } from '@/lib/db';
 import type { WorkflowRunResponse } from '@/services/dify';
 
+export interface EmotionOutput {
+    timestamp: string;
+    score: number;
+    your_quote: string;
+    your_feeling: string;
+    advice: string;
+}
+
 export interface SavedWorkflowRun {
     log_id: string;
     inputs: Record<string, string>;
