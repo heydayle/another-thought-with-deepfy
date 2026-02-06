@@ -17,8 +17,8 @@ export interface WorkflowRunResponse {
         elapsed_time: number;
         total_tokens: number;
         total_steps: number;
-        created_at: number;
-        finished_at: number;
+        created_at: string;
+        finished_at: string;
     };
 }
 

@@ -1,12 +1,2 @@
-export const parseTextResult = (textResult: string) => {
-    try {
-        const cleanResult = textResult
-            .replace(/```json\s*/g, '')
-            .replace(/```\s*/g, '')
-            .trim();
-        return JSON.parse(cleanResult);
-    } catch (e) {
-        console.error('Failed to parse text_result:', e);
-        return null; // Return null on failure so caller can handle it or keep original
-    }
-};
+export * from './common'
+export * from './date'
