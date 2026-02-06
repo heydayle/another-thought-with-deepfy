@@ -17,7 +17,8 @@
   --color-brand-200: #b9b4f6;
   --color-brand-300: #968ff2;
   --color-brand-400: #736aed;
-  --color-brand-500: #4f3fe8; /* Base */
+  --color-brand-500: #4f3fe8;
+  /* Base */
   --color-brand-600: #3f32ba;
   --color-brand-700: #2f268b;
   --color-brand-800: #20195d;
@@ -26,15 +27,18 @@
 
   /* Neutral Colors (Warm Gray/Zinc) based on #2E2E2E */
   --color-neutral-50: #f9f9f9;
-  --color-neutral-100: #f4f4f4; /* Base BG */
+  --color-neutral-100: #f4f4f4;
+  /* Base BG */
   --color-neutral-200: #e5e5e5;
   --color-neutral-300: #d4d4d4;
   --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #8d8d8d; /* Secondary Text */
+  --color-neutral-500: #8d8d8d;
+  /* Secondary Text */
   --color-neutral-600: #737373;
   --color-neutral-700: #525252;
   --color-neutral-800: #404040;
-  --color-neutral-900: #2e2e2e; /* Base Text */
+  --color-neutral-900: #2e2e2e;
+  /* Base Text */
   --color-neutral-950: #171717;
 
   /* Semantic mappings */
@@ -77,6 +81,18 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Emotion Color Palette (for scores 1-10) */
+  --color-emotion-very-low: #B23636;
+  /* Red - scores 1-2 (very negative) */
+  --color-emotion-low: #B29B36;
+  /* Yellow/Orange - scores 3-4 (negative) */
+  --color-emotion-neutral: #42CA44;
+  /* Green - scores 5-6 (neutral/slightly positive) */
+  --color-emotion-high: #1B7F88;
+  /* Teal - scores 7-8 (positive) */
+  --color-emotion-very-high: #1B8866;
+  /* Dark Green/Teal - scores 9-10 (very positive) */
 }
 
 :root {
@@ -118,15 +134,15 @@
 
 .dark {
   /* Dark Theme */
-  --background: #09090b; /* Deep black/zinc */
+  --background: #09090b;
+  /* Deep black/zinc */
   --foreground: #fafafa;
   --card: #18181b;
   --card-foreground: #fafafa;
   --popover: #18181b;
   --popover-foreground: #fafafa;
-  --primary: var(
-    --color-brand-600
-  ); /* Slightly different for dark mode if needed, or keeping consistent */
+  --primary: var(--color-brand-600);
+  /* Slightly different for dark mode if needed, or keeping consistent */
   --primary-foreground: #ffffff;
   --secondary: #27272a;
   --secondary-foreground: #fafafa;
@@ -158,9 +174,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply font-montserrat bg-background text-foreground;
   }
+
   html {
     @apply font-montserrat;
   }

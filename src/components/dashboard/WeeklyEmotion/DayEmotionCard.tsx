@@ -1,3 +1,5 @@
+import { getEmotionColorClass } from '@/utils/emotion';
+
 interface DayEmotionCardProps {
   dayName: string;
   score: string | number;
@@ -26,7 +28,7 @@ const getEmotionShape = (score: string | number): string => {
 export function DayEmotionCard({ dayName, score }: DayEmotionCardProps) {
   return (
     <div className="flex flex-col items-center">
-      <p className="text-4xl">{getEmotionShape(score)}</p>
+      <p className={`text-4xl ${getEmotionColorClass(score)}`}>{getEmotionShape(score)}</p>
       <h2>{dayName}</h2>
     </div>
   );

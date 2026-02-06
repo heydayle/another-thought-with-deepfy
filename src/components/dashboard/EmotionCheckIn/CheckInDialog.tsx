@@ -20,8 +20,6 @@ interface CheckInDialogProps {
   error: string | null;
   result: WorkflowRunResponse | null;
   outputs: any;
-  open: boolean;
-  setOpen: (open: boolean) => void;
 }
 
 export function CheckInDialog({

@@ -33,10 +33,6 @@ export function Dashboard() {
     dispatch(executeWorkflow({ your_mine: query }));
   };
 
-  const deleteTodayEmotion = () => {
-    historyService.deleteRun(result?.data?.log_id);
-  };
-
   return (
     <div className="space-y-8">
       <div>
@@ -46,15 +42,7 @@ export function Dashboard() {
         <p className="text-muted-foreground mt-2">
           Track your emotions and get insights
         </p>
-        {(
-          <button
-            onClick={deleteTodayEmotion}
-            className="text-red-500 hover:text-red-600"
-          >
-            Delete Today's Emotion
-          </button>
-        )}
-        <div className="grid grid-cols-[250px_1fr] gap-2">
+        <div className="grid grid-cols-[250px_1fr] gap-4">
           <EmotionCheckIn
             history={history}
             query={query}

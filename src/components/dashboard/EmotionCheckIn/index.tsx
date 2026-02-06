@@ -47,10 +47,13 @@ export function EmotionCheckIn({
   }, [outputs, history]);
 
   return (
-    <div className="bg-card rounded-xl shadow-sm border border-border p-4 mt-4 h-full">
+    <div className="bg-card rounded-xl border border-border p-4 mt-4 h-full">
       <h2 className="text-xl font-semibold text-foreground">Today's Emotion</h2>
       {todayEmotion && (
-        <p className="text-muted-foreground mt-2">{todayEmotion.score_label}</p>
+        <>
+          <p className="text-foreground mt-2">{todayEmotion.score_label}</p>
+          <p className="text-xs text-muted-foreground">{todayEmotion.your_quote}</p>
+        </>
       )}
       {!todayEmotion && (
         <>
