@@ -2,6 +2,7 @@ import { Day } from "@/utils/help";
 import type { WorkflowRunResponse } from "@/services/dify";
 import { WeeklyHeader } from "./WeeklyHeader";
 import { DayEmotionCard } from "./DayEmotionCard";
+import { useState } from "react";
 
 interface WeeklyEmotionProps {
   history: WorkflowRunResponse[];
@@ -9,16 +10,48 @@ interface WeeklyEmotionProps {
 
 export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
   const today = Day.instance();
-  const startOfWeek = today.startOf("week");
-  const endOfWeek = today.endOf("week");
+  const [range, setRange] = useState<string>("this_week");
+  
+  // Calculate date range based on selected range
+  let startOfWeek: ReturnType<typeof Day.instance>;
+  let endOfWeek: ReturnType<typeof Day.instance>;
+  
+  switch (range) {
+    case "last_week":
+      startOfWeek = today.subtract(1, 'week').startOf("week");
+      endOfWeek = today.subtract(1, 'week').endOf("week");
+      break;
+    case "last_month":
+      startOfWeek = today.subtract(1, 'month').startOf("month");
+      endOfWeek = today.subtract(1, 'month').endOf("month");
+      break;
+    case "last_2_weeks":
+      startOfWeek = today.subtract(2, 'week');
+      endOfWeek = today;
+      break;
+    case "this_month":
+      startOfWeek = today.startOf("month");
+      endOfWeek = today.endOf("month");
+      break;
+    case "this_week":
+    default:
+      startOfWeek = today.startOf("week");
+      endOfWeek = today.endOf("week");
+      break;
+  }
   
   const weekEmotion = history.filter((output: WorkflowRunResponse) => {
     const date = Day.instance(output.data.created_at);
     return date.isBetween(startOfWeek, endOfWeek, null, "[]");
   });
 
-  // Create an array of all 7 days in the week
-  const daysOfWeek = Array.from({ length: 7 }, (_, i) => {
+  // Calculate the number of days to display based on range
+  const daysCount = (range === "last_month" || range === "this_month" || range === "last_2_weeks")
+    ? endOfWeek.diff(startOfWeek, 'day') + 1 
+    : 7;
+
+  // Create an array of days in the selected range
+  const daysOfWeek = Array.from({ length: daysCount }, (_, i) => {
     const day = startOfWeek.add(i, 'day');
     const dayString = day.format('YYYY-MM-DD');
     
@@ -38,9 +71,13 @@ export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
     ? weekEmotion.reduce((acc, output) => acc + output.data.outputs.text_result.score, 0) / weekEmotion.length 
     : 0;
 
+  const onChangeRange = (range: string) => {
+    setRange(range);
+  }
+
   return (
     <div className="bg-card rounded-xl border border-border p-4 mt-4 h-full">
-      <WeeklyHeader improvementPercentage={averageScore}/>
+      <WeeklyHeader improvementPercentage={averageScore} range={range} onRangeChange={onChangeRange}/>
       <div className="mt-8 grid grid-cols-7 gap-2">
         {daysOfWeek.map((day) => (
             <div key={day.date}>
