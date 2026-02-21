@@ -11,22 +11,22 @@ interface WeeklyEmotionProps {
 export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
   const today = Day.instance();
   const [range, setRange] = useState<string>("this_week");
-  
+
   // Calculate date range based on selected range
   let startOfWeek: ReturnType<typeof Day.instance>;
   let endOfWeek: ReturnType<typeof Day.instance>;
-  
+
   switch (range) {
     case "last_week":
-      startOfWeek = today.subtract(1, 'week').startOf("week");
-      endOfWeek = today.subtract(1, 'week').endOf("week");
+      startOfWeek = today.subtract(1, "week").startOf("week");
+      endOfWeek = today.subtract(1, "week").endOf("week");
       break;
     case "last_month":
-      startOfWeek = today.subtract(1, 'month').startOf("month");
-      endOfWeek = today.subtract(1, 'month').endOf("month");
+      startOfWeek = today.subtract(1, "month").startOf("month");
+      endOfWeek = today.subtract(1, "month").endOf("month");
       break;
     case "last_2_weeks":
-      startOfWeek = today.subtract(2, 'week');
+      startOfWeek = today.subtract(2, "week");
       endOfWeek = today;
       break;
     case "this_month":
@@ -39,53 +39,62 @@ export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
       endOfWeek = today.endOf("week");
       break;
   }
-  
+
   const weekEmotion = history.filter((output: WorkflowRunResponse) => {
     const date = Day.instance(output.data.created_at);
     return date.isBetween(startOfWeek, endOfWeek, null, "[]");
   });
 
   // Calculate the number of days to display based on range
-  const daysCount = (range === "last_month" || range === "this_month" || range === "last_2_weeks")
-    ? endOfWeek.diff(startOfWeek, 'day') + 1 
-    : 7;
+  const daysCount =
+    range === "last_month" || range === "this_month" || range === "last_2_weeks"
+      ? endOfWeek.diff(startOfWeek, "day") + 1
+      : 7;
 
   // Create an array of days in the selected range
   const daysOfWeek = Array.from({ length: daysCount }, (_, i) => {
-    const day = startOfWeek.add(i, 'day');
-    const dayString = day.format('YYYY-MM-DD');
-    
+    const day = startOfWeek.add(i, "day");
+    const dayString = day.format("YYYY-MM-DD");
+
     // Find emotion data for this day
     const emotionData = weekEmotion.find((output: WorkflowRunResponse) => {
       return output.data.created_at === dayString;
     });
-    
+
     return {
       date: dayString,
-      dayName: day.format('ddd'),
-      emotionData
+      dayName: daysCount === 7 ? day.format("ddd") : day.format("DD/MM"),
+      emotionData,
     };
   });
 
-  const averageScore = weekEmotion.length > 0 
-    ? weekEmotion.reduce((acc, output) => acc + output.data.outputs.text_result.score, 0) / weekEmotion.length 
-    : 0;
+  const averageScore =
+    weekEmotion.length > 0
+      ? weekEmotion.reduce(
+          (acc, output) => acc + output.data.outputs.text_result.score,
+          0,
+        ) / weekEmotion.length
+      : 0;
 
   const onChangeRange = (range: string) => {
     setRange(range);
-  }
+  };
 
   return (
     <div className="bg-card rounded-xl border border-border p-4 mt-4 h-full">
-      <WeeklyHeader improvementPercentage={averageScore} range={range} onRangeChange={onChangeRange}/>
+      <WeeklyHeader
+        improvementPercentage={averageScore}
+        range={range}
+        onRangeChange={onChangeRange}
+      />
       <div className="mt-8 grid grid-cols-7 gap-2">
         {daysOfWeek.map((day) => (
-            <div key={day.date}>
-                <DayEmotionCard
-                    dayName={day.dayName}
-                    score={day.emotionData?.data?.outputs?.text_result?.score || 0}
-                />
-            </div>
+          <div key={day.date}>
+            <DayEmotionCard
+              dayName={day.dayName}
+              score={day.emotionData?.data?.outputs?.text_result?.score || 0}
+            />
+          </div>
         ))}
       </div>
     </div>

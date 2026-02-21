@@ -1,35 +1,23 @@
-import { getEmotionColorClass } from '@/utils/emotion';
+import { getEmotionColorClass } from "@/utils/emotion";
+import { getEmotionEmoji } from "@/constants/emojis";
 
 interface DayEmotionCardProps {
   dayName: string;
   score: string | number;
 }
 
-// Map score (1-10) to emotion shapes/emojis
-const getEmotionShape = (score: string | number): string => {
-  const numScore = typeof score === 'string' ? parseInt(score) : score;
-  
-  const emotionMap: Record<number, string> = {
-    1: '😭',  // Very sad/crying
-    2: '😢',  // Sad/tearful
-    3: '😔',  // Disappointed
-    4: '😕',  // Confused/slightly sad
-    5: '😐',  // Neutral
-    6: '🙂',  // Slightly happy
-    7: '😊',  // Happy
-    8: '😄',  // Very happy
-    9: '😁',  // Joyful
-    10: '🤩', // Ecstatic/amazing
-  };
-  
-  return emotionMap[numScore] || '❓';
-};
-
 export function DayEmotionCard({ dayName, score }: DayEmotionCardProps) {
+  const { label, image } = getEmotionEmoji(score);
+
   return (
-    <div className="flex flex-col items-center">
-      <p className={`text-4xl ${getEmotionColorClass(score)}`}>{getEmotionShape(score)}</p>
-      <h2>{dayName}</h2>
+    <div className="flex flex-col items-center gap-1">
+      <img
+        src={image}
+        alt={label}
+        title={label}
+        className={`w-10 h-10 object-contain ${getEmotionColorClass(score)}`}
+      />
+      <h2 className="text-sm font-medium">{dayName}</h2>
     </div>
   );
 }
