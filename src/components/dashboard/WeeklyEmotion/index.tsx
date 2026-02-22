@@ -81,13 +81,13 @@ export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
   };
 
   return (
-    <div className="bg-card rounded-xl border border-border p-4 mt-4 h-full">
+    <div className="bg-card rounded-xl border border-border p-4 h-fit">
       <WeeklyHeader
         improvementPercentage={averageScore}
         range={range}
         onRangeChange={onChangeRange}
       />
-      <div className="mt-8 grid grid-cols-7 gap-2">
+      <div className="mt-6 mb-0 grid grid-cols-7 gap-2">
         {daysOfWeek.map((day) => (
           <div key={day.date}>
             <DayEmotionCard

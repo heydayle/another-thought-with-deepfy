@@ -1,8 +1,10 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { CheckCircle2 } from "lucide-react";
 import { Day, parseTextResult } from "@/utils/help";
 import type { WorkflowRunResponse } from "@/services/dify";
 import type { EmotionOutput } from "@/services/history";
 import { CheckInDialog } from "./CheckInDialog";
+import { TodayEmotionCard } from "./TodayEmotionCard";
 
 interface EmotionCheckInProps {
   history: WorkflowRunResponse[];
@@ -25,7 +27,6 @@ export function EmotionCheckIn({
   result,
   outputs,
 }: EmotionCheckInProps) {
-
   const todayEmotion = useMemo(() => {
     let emotion: EmotionOutput | undefined;
 
@@ -47,17 +48,33 @@ export function EmotionCheckIn({
   }, [outputs, history]);
 
   return (
-    <div className="bg-card rounded-xl border border-border p-4 mt-4 h-full">
-      <h2 className="text-xl font-semibold text-foreground">Today's Emotion</h2>
+    <div className="bg-card rounded-xl border border-border p-4 min-w-0 overflow-hidden flex flex-col gap-3">
+      {/* ── Header ─────────────────────────────────────────── */}
+      <div className="flex items-center justify-between gap-2 shrink-0">
+        <h2 className="text-xl font-semibold text-foreground leading-none">
+          Today's Emotion
+        </h2>
+
+        {todayEmotion && (
+          /* Checked-in badge */
+          <span className="inline-flex items-center gap-1 rounded-full bg-green-100 dark:bg-green-900/40 px-2 py-0.5 text-[11px] font-medium text-green-700 dark:text-green-400 shrink-0">
+            <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+            Checked in
+          </span>
+        )}
+      </div>
+
+      {/* ── Checked-in state: rich emotion display ──────── */}
       {todayEmotion && (
-        <>
-          <p className="text-foreground mt-2">{todayEmotion.score_label}</p>
-          <p className="text-xs text-muted-foreground">{todayEmotion.your_quote}</p>
-        </>
+        <div className="overflow-y-auto flex-1 min-h-0 max-h-[272px] pr-0.5">
+          <TodayEmotionCard emotion={todayEmotion} />
+        </div>
       )}
+
+      {/* ── Empty state: prompt + dialog trigger ─────────── */}
       {!todayEmotion && (
-        <>
-          <p className="text-md text-muted-foreground mt-2">
+        <div className="flex flex-col gap-3 flex-1">
+          <p className="text-sm text-muted-foreground">
             <b className="text-primary">Tap once</b> to reflect. Takes only 10
             seconds.
           </p>
@@ -70,7 +87,7 @@ export function EmotionCheckIn({
             result={result}
             outputs={outputs}
           />
-        </>
+        </div>
       )}
     </div>
   );

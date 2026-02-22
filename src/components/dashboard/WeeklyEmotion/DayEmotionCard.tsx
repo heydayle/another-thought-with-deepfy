@@ -13,9 +13,9 @@ export function DayEmotionCard({ dayName, score }: DayEmotionCardProps) {
     <div className="flex flex-col items-center gap-1">
       <img
         src={image}
-        alt={label}
-        title={label}
-        className={`w-10 h-10 object-contain ${getEmotionColorClass(score)}`}
+        alt={label || dayName}
+        title={label || dayName}
+        className={`w-14 h-14 object-contain ${getEmotionColorClass(score)}`}
       />
       <h2 className="text-sm font-medium">{dayName}</h2>
     </div>
