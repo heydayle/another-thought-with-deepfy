@@ -1,19 +1,19 @@
-// --- Emoji image assets ---
-import beamingWithSmiling from '@/assets/images/emojis/beaming_with_smiling.png';
-import crying from '@/assets/images/emojis/crying.png';
-import emptyDaisy from '@/assets/images/emojis/empty_daisy.png';
-import flushed from '@/assets/images/emojis/flushed.png';
-import loudlyCrying from '@/assets/images/emojis/loudly_crying.png';
-import neutral from '@/assets/images/emojis/neutral.png';
-import pleading from '@/assets/images/emojis/pleading.png';
-import slightlySmiling from '@/assets/images/emojis/slightly_smiling.png';
-import smiling from '@/assets/images/emojis/smiling.png';
-import smilingWithHearts from '@/assets/images/emojis/smiling_with_hearts.png';
-import starStruck from '@/assets/images/emojis/star_struck.png';
+// --- Emoji SVG assets ---
+import beamingWithSmiling from '@/assets/svgs/beaming_with_smiling.svg';
+import crying from '@/assets/svgs/crying.svg';
+import emptyDaisy from '@/assets/svgs/empty_daisy.svg';
+import flushed from '@/assets/svgs/flushed.svg';
+import loudlyCrying from '@/assets/svgs/loudly_crying.svg';
+import neutral from '@/assets/svgs/neutral.svg';
+import pleading from '@/assets/svgs/pleading.svg';
+import slightlySmiling from '@/assets/svgs/slightly_smiling.svg';
+import smiling from '@/assets/svgs/smiling.svg';
+import smilingWithHearts from '@/assets/svgs/smiling_with_hearts.svg';
+import starStruck from '@/assets/svgs/star_struck.svg';
 
 // --- Emoji constants ---
 
-/** All available emoji image paths, keyed by their descriptive name. */
+/** All available emoji SVG paths, keyed by their descriptive name. */
 export const EMOJI_IMAGES = {
     beamingWithSmiling,
     crying,
@@ -34,7 +34,7 @@ export type EmojiKey = keyof typeof EMOJI_IMAGES;
 
 /**
  * Maps an emotion score (1–10) to a descriptive label and its corresponding
- * emoji image path.
+ * emoji SVG path.
  *
  * Score scale:
  *  1  – Loudly crying  (very devastated)
@@ -68,7 +68,7 @@ export const SCORE_TO_EMOTION: Record<number, EmotionEmoji> = {
 
 /**
  * Returns the `EmotionEmoji` object for a given score.
- * Falls back to the `emptyDaisy` image when the score is out of range.
+ * Falls back to the `emptyDaisy` SVG when the score is out of range.
  */
 export function getEmotionEmoji(score: string | number): EmotionEmoji {
     const numScore = typeof score === 'string' ? parseInt(score, 10) : score;
