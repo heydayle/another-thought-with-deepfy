@@ -81,7 +81,7 @@ export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
   };
 
   return (
-    <div className="bg-card rounded-xl border border-border p-4 h-fit">
+    <div className="bg-card rounded-xl p-4 h-fit">
       <WeeklyHeader
         improvementPercentage={averageScore}
         range={range}

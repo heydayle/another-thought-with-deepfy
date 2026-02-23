@@ -1,62 +1,70 @@
 import { NavLink } from "react-router";
+import { LayoutDashboard, HeartPulse, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarRail,
+} from "@/components/ui/sidebar";
 
-export function Aside() {
-  const menus = [
-    {
-      label: "Dashboard",
-      children: [
-        {
-          label: "Mood Tracker",
-          href: "/",
-        },
-        {
-          label: "Health Insights",
-          href: "/health-insights",
-        },
-        {
-          label: "Personal Goals",
-          href: "/personal-goals",
-        },
-      ],
-    },
-  ];
+const menus = [
+  {
+    label: "Dashboard",
+    children: [
+      { label: "Mood Tracker", href: "/", icon: LayoutDashboard },
+      { label: "Health Insights", href: "/health-insights", icon: HeartPulse },
+      { label: "Personal Goals", href: "/personal-goals", icon: Target },
+    ],
+  },
+];
+
+export function AppSidebar() {
   return (
-    <aside className="w-64 bg-white border border-gray-200 h-[calc(100vh-4rem)] rounded-lg">
-      <div className="px-4 py-6">
-        <ul>
-          {menus.map((menu) => (
-            <div key={menu.label}>
-              <li className="text-lg font-semibold text-gray-900 mb-2 py-2 px-4 bg-primary/10 rounded-sm text-primary">
-                {menu.label}
-              </li>
-              <ul className="pl-4">
-                {menu.children.map((child) => (
-                  <li key={child.label} className="my-1">
-                    <NavLink
-                      to={child.href}
-                      className={({ isActive }) =>
-                        cn(
-                          "block py-2 px-4 rounded-md transition-colors flex items-center gap-2",
-                          "text-neutral-500 hover:text-primary hover:bg-primary/10",
-                          isActive && "text-primary font-medium",
-                        )
-                      }
-                    >
+    <Sidebar collapsible="icon">
+      <SidebarContent className="py-4">
+        {menus.map((menu) => (
+          <SidebarGroup key={menu.label}>
+            {/* Group heading – hidden when icon-only (handled by shadcn automatically) */}
+            <SidebarGroupLabel className="text-sm font-semibold text-primary bg-primary/10 rounded-sm px-4 py-2 mb-1">
+              {menu.label}
+            </SidebarGroupLabel>
+
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {menu.children.map(({ label, href, icon: Icon }) => (
+                  <SidebarMenuItem key={label}>
+                    <NavLink to={href}>
                       {({ isActive }) => (
-                        <>
-                          <div className={cn("w-2 h-2 rounded-full", isActive && "bg-primary")} />
-                          {child.label}
-                        </>
+                        <SidebarMenuButton
+                          isActive={isActive}
+                          tooltip={label}
+                          className={cn(
+                            "flex items-center gap-2 w-full py-2 px-4 rounded-md transition-colors",
+                            "text-neutral-500 hover:text-primary",
+                            isActive && "!text-primary font-medium",
+                          )}
+                        >
+                          <Icon className="shrink-0" />
+                          <span>{label}</span>
+                        </SidebarMenuButton>
                       )}
                     </NavLink>
-                  </li>
+                  </SidebarMenuItem>
                 ))}
-              </ul>
-            </div>
-          ))}
-        </ul>
-      </div>
-    </aside>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
+      </SidebarContent>
+
+      {/* Drag rail to resize / click to collapse */}
+      <SidebarRail />
+    </Sidebar>
   );
 }

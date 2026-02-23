@@ -25,7 +25,7 @@ export function ResultDisplay({ error, result, outputs }: ResultDisplayProps) {
       )}
 
       {result && (
-        <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden mt-4">
+        <div className="bg-card rounded-xl overflow-hidden mt-4">
           <div className="bg-muted/50 px-6 py-4 border-b border-border flex justify-between items-center">
             <h2 className="text-sm font-semibold text-foreground">
               Execution Result

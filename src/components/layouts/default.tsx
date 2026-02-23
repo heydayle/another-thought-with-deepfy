@@ -1,15 +1,23 @@
 import { Outlet } from "react-router";
-import { Aside } from "../common/aside";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "../common/aside";
 
 export function DefaultLayout() {
   return (
-    <div className="container min-h-screen mx-auto">
-      <div className="flex p-6">
-        <Aside />
-        <div className="flex-1 px-6">
-          <Outlet />
-        </div>
-      </div>
-    </div>
+    <TooltipProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          {/* Slim top bar with the collapse toggle */}
+          <header className="flex h-10 items-center gap-2 px-4 shrink-0">
+            <SidebarTrigger className="-ml-1" />
+          </header>
+          <div className="flex-1 px-6 pb-6">
+            <Outlet />
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    </TooltipProvider>
   );
 }

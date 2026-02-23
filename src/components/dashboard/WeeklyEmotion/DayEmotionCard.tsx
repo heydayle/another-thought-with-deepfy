@@ -10,14 +10,14 @@ export function DayEmotionCard({ dayName, score }: DayEmotionCardProps) {
   const { label, image } = getEmotionEmoji(score);
 
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-center gap-1 mb-2">
       <img
         src={image}
         alt={label || dayName}
         title={label || dayName}
         className={`w-14 h-14 object-contain ${getEmotionColorClass(score)}`}
       />
-      <h2 className="text-sm font-medium">{dayName}</h2>
+      <h2 className="text-sm font-medium text-muted-foreground">{dayName}</h2>
     </div>
   );
 }

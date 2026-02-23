@@ -23,7 +23,7 @@ export function ChartEmotions({ history }: ChartEmotionsProps) {
   );
 
   return (
-    <div className="bg-card rounded-xl border border-border p-5 h-fit flex flex-col gap-5">
+    <div className="bg-card rounded-xl p-5 h-fit flex flex-col gap-5">
       {/* Header: title, stats, range picker */}
       <ChartEmotionsHeader
         averageScore={averageScore}

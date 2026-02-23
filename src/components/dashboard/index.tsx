@@ -6,6 +6,7 @@ import { EmotionCheckIn } from "./EmotionCheckIn";
 import { WeeklyEmotion } from "./WeeklyEmotion";
 import { ChartEmotions } from "./ChartEmotions";
 import { useEmotionHistory } from "./hooks/useEmotionHistory";
+import { TodayBlock } from "./TodayBlock";
 
 export function Dashboard() {
   const [query, setQuery] = useState("");
@@ -44,7 +45,7 @@ export function Dashboard() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 h-[calc(100svh-64px)] overflow-y-auto">
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Emotions Tracker
@@ -56,7 +57,7 @@ export function Dashboard() {
           <div
             className={`grid gap-4 ${hasTodayEmotion() ? "grid-cols-1" : "grid-cols-[250px_1fr]"} items-start`}
           >
-            <div className="min-w-0">
+            <div className="min-w-0 flex gap-4">
               <EmotionCheckIn
                 history={history}
                 query={query}
@@ -67,6 +68,7 @@ export function Dashboard() {
                 result={result}
                 outputs={outputs}
               />
+              {hasTodayEmotion() && <TodayBlock />}
             </div>
             <div className="min-w-0">
               <WeeklyEmotion history={history} />
