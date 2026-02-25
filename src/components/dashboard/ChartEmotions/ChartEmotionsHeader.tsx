@@ -59,7 +59,7 @@ export function ChartEmotionsHeader({
   totalEntries,
 }: ChartEmotionsHeaderProps) {
   return (
-    <div className="flex items-start justify-between gap-4">
+    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
       {/* Left – title + stats */}
       <div className="flex flex-col gap-3">
         <div>
@@ -89,7 +89,7 @@ export function ChartEmotionsHeader({
         value={range}
         onValueChange={(v) => onRangeChange(v as ChartRange)}
       >
-        <SelectTrigger className="w-[160px] shrink-0">
+        <SelectTrigger className="w-full sm:w-[160px] shrink-0">
           <SelectValue placeholder="Range" />
         </SelectTrigger>
         <SelectContent>

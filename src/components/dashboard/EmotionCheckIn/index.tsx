@@ -48,7 +48,7 @@ export function EmotionCheckIn({
   }, [outputs, history]);
 
   return (
-    <div className="bg-card rounded-xl p-4 min-w-0 overflow-hidden flex flex-col gap-3 h-[192px]">
+    <div className="bg-card rounded-xl p-4 min-w-0 overflow-hidden flex flex-col gap-3 min-h-[192px]">
       {/* ── Header ─────────────────────────────────────────── */}
       <div className="flex items-center justify-between gap-2 shrink-0">
         <h2 className="text-xl font-semibold text-foreground leading-none">

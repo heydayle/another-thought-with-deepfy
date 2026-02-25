@@ -71,14 +71,20 @@ export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
   const averageScore =
     weekEmotion.length > 0
       ? weekEmotion.reduce(
-          (acc, output) => acc + output.data.outputs.text_result.score,
-          0,
-        ) / weekEmotion.length
+        (acc, output) => acc + output.data.outputs.text_result.score,
+        0,
+      ) / weekEmotion.length
       : 0;
 
   const onChangeRange = (range: string) => {
     setRange(range);
   };
+
+  // Choose responsive grid columns based on range type
+  const gridCols =
+    daysCount <= 7
+      ? "grid-cols-4 sm:grid-cols-7"
+      : "grid-cols-4 sm:grid-cols-7 md:grid-cols-7";
 
   return (
     <div className="bg-card rounded-xl p-4 h-fit">
@@ -87,15 +93,17 @@ export function WeeklyEmotion({ history }: WeeklyEmotionProps) {
         range={range}
         onRangeChange={onChangeRange}
       />
-      <div className="mt-6 mb-0 grid grid-cols-7 gap-2">
-        {daysOfWeek.map((day) => (
-          <div key={day.date}>
-            <DayEmotionCard
-              dayName={day.dayName}
-              score={day.emotionData?.data?.outputs?.text_result?.score || 0}
-            />
-          </div>
-        ))}
+      <div className={`mt-6 mb-0 overflow-x-auto`}>
+        <div className={`grid ${gridCols} gap-2 min-w-0`}>
+          {daysOfWeek.map((day) => (
+            <div key={day.date}>
+              <DayEmotionCard
+                dayName={day.dayName}
+                score={day.emotionData?.data?.outputs?.text_result?.score || 0}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

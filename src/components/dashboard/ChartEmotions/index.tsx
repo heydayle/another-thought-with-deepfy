@@ -37,12 +37,12 @@ export function ChartEmotions({ history }: ChartEmotionsProps) {
       {/* Area chart: score over time */}
       <EmotionAreaChart data={chartData} averageScore={averageScore} />
 
-      <div className="border-t border-border pt-4 grid grid-cols-[1fr_auto] gap-6 items-start">
+      <div className="border-t border-border pt-4 flex flex-col md:grid md:grid-cols-[1fr_auto] gap-6 items-start">
         {/* Legend */}
         <EmotionLegend activeScores={activeScores} />
 
         {/* Bar chart: distribution */}
-        <div className="w-[260px] shrink-0">
+        <div className="w-full md:w-[260px] shrink-0">
           <EmotionBarChart data={distribution} />
         </div>
       </div>

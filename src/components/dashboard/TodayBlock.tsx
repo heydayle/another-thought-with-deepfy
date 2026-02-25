@@ -6,8 +6,8 @@ export function TodayBlock() {
     const monthName = today.toLocaleDateString("en-US", { month: "long" });
 
     return (
-        <div className="flex items-center gap-4">
-            <div className="flex flex-col rounded-lg bg-white px-2.5 py-4 shrink-0 min-w-[200px] h-full">
+        <div className="flex items-stretch gap-4">
+            <div className="flex flex-col rounded-lg bg-white px-2.5 py-4 shrink-0 w-full">
                 <span className="text-[10px] font-semibold uppercase tracking-widest leading-none text-muted-foreground">
                     {dayName}
                 </span>

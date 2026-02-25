@@ -13,7 +13,7 @@ export function WeeklyHeader({
   onRangeChange,
 }: WeeklyHeaderProps) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
       <div>
         <h2 className="text-xl font-semibold">Weekly Emotion</h2>
         <p className="text-sm text-muted-foreground">
@@ -22,7 +22,7 @@ export function WeeklyHeader({
         </p>
       </div>
       <Select value={range} onValueChange={onRangeChange}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-full sm:w-[180px] shrink-0">
           <SelectValue placeholder="Range" className="text-primary bg-white rounded-none border-0 border-b border-b-primary shadow-none cursor-pointer hover:bg-primary/10 hover:border-b-primary hover:text-primary" />
         </SelectTrigger>
         <SelectContent>

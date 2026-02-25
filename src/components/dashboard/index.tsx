@@ -45,19 +45,24 @@ export function Dashboard() {
   };
 
   return (
-    <div className="space-y-8 h-[calc(100svh-64px)] overflow-y-auto">
+    <div className="space-y-6 h-[calc(100svh-64px)] overflow-y-auto px-1">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
           Emotions Tracker
         </h1>
-        <p className="text-muted-foreground my-2">
+        <p className="text-muted-foreground my-2 text-sm sm:text-base">
           Track your emotions and get insights
         </p>
         <div className="flex flex-col gap-4">
+          {/* Top row: check-in card + (optionally today block) + weekly emotion */}
           <div
-            className={`grid gap-4 ${hasTodayEmotion() ? "grid-cols-1" : "grid-cols-[250px_1fr]"} items-start`}
+            className={`grid gap-4 items-start ${hasTodayEmotion()
+                ? "grid-cols-1"
+                : "grid-cols-1 md:grid-cols-[minmax(0,280px)_1fr]"
+              }`}
           >
-            <div className="min-w-0 flex gap-4">
+            {/* Left column: EmotionCheckIn + TodayBlock */}
+            <div className="min-w-0 flex flex-col sm:flex-row md:flex-col gap-4">
               <EmotionCheckIn
                 history={history}
                 query={query}
@@ -70,6 +75,7 @@ export function Dashboard() {
               />
               {hasTodayEmotion() && <TodayBlock />}
             </div>
+            {/* Right column: WeeklyEmotion */}
             <div className="min-w-0">
               <WeeklyEmotion history={history} />
             </div>
