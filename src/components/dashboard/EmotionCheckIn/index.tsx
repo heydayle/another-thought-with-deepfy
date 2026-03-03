@@ -30,6 +30,7 @@ export function EmotionCheckIn({
   const todayEmotion = useMemo(() => {
     let emotion: EmotionOutput | undefined;
 
+    // Check history (IndexedDB) for today's entry
     history?.forEach((output: WorkflowRunResponse) => {
       const date = Day.instance(output.data.created_at);
       const today = Day.instance();
@@ -44,6 +45,13 @@ export function EmotionCheckIn({
         ) as EmotionOutput;
       }
     });
+
+    // Fallback: use current outputs from the just-completed workflow
+    // (history may not have refreshed from IndexedDB yet)
+    if (!emotion && outputs) {
+      emotion = outputs as EmotionOutput;
+    }
+
     return emotion;
   }, [outputs, history]);
 

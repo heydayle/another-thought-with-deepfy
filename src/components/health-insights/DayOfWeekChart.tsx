@@ -30,7 +30,7 @@ export function DayOfWeekChart({ stats, bestDay, worstDay }: DayOfWeekChartProps
             </div>
 
             {/* Bar chart */}
-            <div className="flex items-end gap-2 h-[140px]">
+            <div className="flex items-end gap-2 h-[178px]">
                 {stats.map((stat) => {
                     const heightPercent = stat.avgScore > 0 ? (stat.avgScore / 10) * 100 : 2;
                     const isBest = bestDay && stat.day === bestDay.day;
