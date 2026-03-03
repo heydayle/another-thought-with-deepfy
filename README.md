@@ -1,4 +1,4 @@
-<![CDATA[# 🧠 Deepfy — Another Thought With Deepfy
+# 🧠 Deepfy — Another Thought With Deepfy
 
 > **Your mind + React + Dify + DeepSeek**
 
@@ -275,4 +275,4 @@ User Input ("How are you feeling?")
 ## 📄 License
 
 [MIT License](./LICENSE) © 2026 [Thinh Le](https://github.com/heydayle)
-]]>
+
