@@ -161,7 +161,7 @@ const frameworks = [
   "Astro",
 ] as const;
 
-function FormExample() {
+export function FormExample() {
   const [notifications, setNotifications] = React.useState({
     email: true,
     sms: false,

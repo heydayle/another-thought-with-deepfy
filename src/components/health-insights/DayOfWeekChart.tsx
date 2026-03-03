@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { getEmotionColor } from "@/utils/emotion";
 import type { DayOfWeekStat } from "./useHealthInsights";
 
@@ -9,11 +8,6 @@ interface DayOfWeekChartProps {
 }
 
 export function DayOfWeekChart({ stats, bestDay, worstDay }: DayOfWeekChartProps) {
-    const maxScore = useMemo(
-        () => Math.max(...stats.map((s) => s.avgScore), 1),
-        [stats]
-    );
-
     return (
         <div className="bg-card rounded-xl border border-border p-5">
             <div className="flex items-center justify-between mb-4">
@@ -69,10 +63,10 @@ export function DayOfWeekChart({ stats, bestDay, worstDay }: DayOfWeekChartProps
                             </div>
                             <span
                                 className={`text-[11px] font-medium ${isBest
-                                        ? "text-emerald-600 font-bold"
-                                        : isWorst
-                                            ? "text-red-400"
-                                            : "text-muted-foreground"
+                                    ? "text-emerald-600 font-bold"
+                                    : isWorst
+                                        ? "text-red-400"
+                                        : "text-muted-foreground"
                                     }`}
                             >
                                 {stat.day}
