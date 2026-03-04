@@ -129,7 +129,6 @@ describe('goalsService', () => {
 
         it('updates the updatedAt timestamp', () => {
             const goal = goalsService.add({ title: 'Test', description: '', category: 'health', target: 10, current: 0, unit: 'days' })
-            const _originalUpdatedAt = goal.updatedAt
 
             // Small delay to ensure different timestamp
             const updated = goalsService.update(goal.id, { title: 'Updated' })
