@@ -74,7 +74,7 @@ export function EmotionCheckIn({
 
       {/* ── Checked-in state: rich emotion display ──────── */}
       {todayEmotion && (
-        <div className="overflow-y-auto flex-1 min-h-0 max-h-[272px] pr-0.5">
+        <div className="overflow-y-auto flex-1 min-h-0 max-h-[400px] pr-0.5">
           <TodayEmotionCard emotion={todayEmotion} />
         </div>
       )}

@@ -43,7 +43,7 @@ export function EmotionHighlights({
     ];
 
     return (
-        <div className="bg-card rounded-xl border border-border p-5">
+        <div className="bg-card rounded-xl border border-border p-5 h-[274px]">
             <h3 className="text-sm font-semibold text-foreground mb-4">
                 Emotion Highlights
             </h3>

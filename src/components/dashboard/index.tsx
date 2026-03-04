@@ -57,8 +57,8 @@ export function Dashboard() {
           {/* Top row: check-in card + (optionally today block) + weekly emotion */}
           <div
             className={`grid gap-4 items-start ${hasTodayEmotion()
-                ? "grid-cols-1"
-                : "grid-cols-1 md:grid-cols-[minmax(0,280px)_1fr]"
+              ? "grid-cols-1"
+              : "grid-cols-1 md:grid-cols-[minmax(0,280px)_1fr]"
               }`}
           >
             {/* Left column: EmotionCheckIn + TodayBlock */}
@@ -73,7 +73,7 @@ export function Dashboard() {
                 result={result}
                 outputs={outputs}
               />
-              {hasTodayEmotion() && <TodayBlock />}
+              {hasTodayEmotion() && <TodayBlock history={history} />}
             </div>
             {/* Right column: WeeklyEmotion */}
             <div className="min-w-0">

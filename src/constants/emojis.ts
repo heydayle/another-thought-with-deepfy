@@ -59,10 +59,10 @@ export const SCORE_TO_EMOTION: Record<number, EmotionEmoji> = {
     3: { label: 'Pleading', image: pleading },
     4: { label: 'Flushed', image: flushed },
     5: { label: 'Neutral', image: neutral },
-    6: { label: 'Empty Daisy', image: emptyDaisy },
-    7: { label: 'Slightly Smiling', image: slightlySmiling },
-    8: { label: 'Smiling', image: smiling },
-    9: { label: 'Beaming', image: beamingWithSmiling },
+    6: { label: 'Slightly Smiling', image: slightlySmiling },
+    7: { label: 'Smiling', image: smiling },
+    8: { label: 'Beaming', image: beamingWithSmiling },
+    9: { label: 'Smiling with Hearts', image: smilingWithHearts },
     10: { label: 'Star Struck', image: starStruck },
 };
 

@@ -23,9 +23,8 @@ export function EmotionForm({
           Input Query
         </label>
         <div className="flex gap-2">
-          <input
+          <textarea
             id="query"
-            type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Enter your query here..."

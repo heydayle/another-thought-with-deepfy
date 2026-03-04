@@ -22,7 +22,7 @@ export function WellnessScoreRing({ score, label = "Wellness Score" }: WellnessS
     }, [score]);
 
     return (
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-3 h-[224px]">
             <div className="relative w-[180px] h-[180px]">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
                     {/* Background ring */}

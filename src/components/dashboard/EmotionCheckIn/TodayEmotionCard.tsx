@@ -60,7 +60,7 @@ export function TodayEmotionCard({ emotion }: TodayEmotionCardProps) {
             className="w-3.5 h-3.5 shrink-0 mt-0.5 text-muted-foreground"
             strokeWidth={2.5}
           />
-          <p className="text-xs italic text-muted-foreground leading-relaxed line-clamp-3 break-words">
+          <p className="text-xs italic text-muted-foreground leading-relaxed break-words">
             {emotion.your_quote}
           </p>
         </div>
@@ -73,7 +73,7 @@ export function TodayEmotionCard({ emotion }: TodayEmotionCardProps) {
             className="w-3.5 h-3.5 shrink-0 mt-0.5 text-muted-foreground"
             strokeWidth={2.5}
           />
-          <p className="text-xs text-foreground leading-relaxed line-clamp-3 break-words">
+          <p className="text-xs text-foreground leading-relaxed break-words">
             {emotion.your_feeling}
           </p>
         </div>
@@ -86,7 +86,7 @@ export function TodayEmotionCard({ emotion }: TodayEmotionCardProps) {
             className="w-3.5 h-3.5 shrink-0 mt-0.5 text-muted-foreground"
             strokeWidth={2.5}
           />
-          <p className="text-xs text-foreground leading-relaxed line-clamp-3 break-words">
+          <p className="text-xs text-foreground leading-relaxed break-words">
             {emotion.advice}
           </p>
         </div>
